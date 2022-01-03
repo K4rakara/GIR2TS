@@ -226,6 +226,10 @@ function renderInterfacePart(class_name: string, class_node: ClassNode, ns_name:
 
 function renderInitOptionsInterface(class_name: string, fields: FieldNode[], ifaces: string[]): string {
     let constructorOptions = `type ${class_name}InitOptionsMixin `;
+
+    // omit readonly props
+    fields = fields.filter((v) => v?.$?.writable == 1);
+
     if (fields.length > 0 || ifaces.length > 0)
         constructorOptions+= "= ";
     else {
