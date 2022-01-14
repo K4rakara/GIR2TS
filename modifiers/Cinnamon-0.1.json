@@ -1,0 +1,14 @@
+{
+    "$schema": "./schema.json",
+    "amend": {
+        "class": {
+            "Global": {
+                "prop": {
+                    "stage": {
+                        "type": "Clutter.Stage"
+                    }
+                }
+            }
+        }
+    }
+}

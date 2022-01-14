@@ -349,7 +349,7 @@ declare namespace imports.gi.Cinnamon {
 		readonly screen_width: number;
 		session_running: boolean;
 		readonly settings: Gio.Settings;
-		readonly stage: Clutter.Actor;
+		readonly stage: Clutter.Stage;
 		stage_input_mode: StageInputMode;
 		readonly top_window_group: Clutter.Actor;
 		readonly ui_scale: number;

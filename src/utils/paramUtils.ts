@@ -69,7 +69,7 @@ export function GetTypeInfo(param_node: ParameterNode, modifier?: ParamModifier)
         type = convertToJSType(param_node.array[0].type[0].$.name) + '[]';
         doc = param_node.doc?.[0]?._ ?? null;
     } else if (param_node.array && param_node.array[0].array) {
-        ({ type, docString:doc } = GetTypeInfo(param_node.array[0] as ParameterNode));
+        ({ type, docString:doc } = GetTypeInfo(param_node.array[0] as ParameterNode, modifier));
         type += "[]";
     } else {
         console.log("can't get param type", JSON.stringify(param_node, null, 4))
@@ -80,7 +80,14 @@ export function GetTypeInfo(param_node: ParameterNode, modifier?: ParamModifier)
         };
     }
 
-    let finalType = modifier?.type ?? ((modifier?.type_extension?.length ?? 0 > 1)) ? `${type} | ${modifier?.type_extension?.join(" | ")}`  : type;
+    let finalType: string;
+    if (modifier?.type != null) {
+        finalType = modifier?.type;
+    }
+    else {
+        finalType = ((modifier?.type_extension?.length ?? 0) > 0) ? `${type} | ${modifier?.type_extension?.join(" | ")}`  : type
+    }
+
     if (param_node?.$?.["allow-none"] == 1 || param_node?.$?.["nullable"] == 1)
         finalType+= " | null";
     return {
