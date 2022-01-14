@@ -25,6 +25,20 @@
                         ]
                     }
                 }
+            },
+            "List": {
+                "generic": "<T = any>",
+                "prop": {
+                    "data": {
+                        "type": "T"
+                    },
+                    "prev": {
+                        "type_extension": [ "null" ]
+                    },
+                    "next": {
+                        "type_extension": [ "null" ]
+                    }
+                }
             }
         }
     }
