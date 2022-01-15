@@ -8,6 +8,9 @@ export interface ModifierDesc {
         }
         enumeration?: {
             [enumV: string]: EnumModifier;
+        },
+        interface?: {
+            [interf: string]: FunctionModifier;
         }
     }
 }

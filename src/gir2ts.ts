@@ -74,7 +74,7 @@ function renderNamespace(ns_node: NamespaceNode, ns_name: string, exclude?: Excl
         }
     if (ns_node.callback)
         for (let cb_node of ns_node.callback) {
-            body += '\n\t' + (renderCallback(cb_node, ns_name) + '\n').replace(/\n/gm, "\n\t");
+            body += '\n\t' + (renderCallback(cb_node, ns_name, modifiers?.amend?.interface?.[cb_node.$.name]) + '\n').replace(/\n/gm, "\n\t");
         }
     if (ns_node.union)
         for (let union_node of ns_node.union) {

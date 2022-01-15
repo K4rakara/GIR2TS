@@ -41,6 +41,13 @@
                         
                     }
                 },
+                "interface": {
+                    "description": "Interfaces to amend",
+                    "type" : "object",
+                    "additionalProperties" : {
+                        "$ref": "./function-schema.json"
+                    }
+                },
                 "function": {
                     "description": "Functions to amend",
                     "type" : "object",

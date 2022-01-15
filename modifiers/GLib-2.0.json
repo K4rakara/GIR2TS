@@ -1,6 +1,52 @@
 {
     "$schema": "./schema.json",
     "amend": {
+        "interface": {
+            "CopyFunc": {
+                "generic": "<T = any, K = any>",
+                "param": {
+                    "src": {
+                        "type": "T"
+                    },
+                    "data": {
+                        "type": "K | null"
+                    }
+                },
+                "return_type": {
+                    "type": "T"
+                }
+            },
+            "CompareFunc": {
+                "generic": "<T = any>",
+                "param": {
+                    "a": {
+                        "type": "T | null"
+                    },
+                    "b": {
+                        "type": "T | null"
+                    }
+                }
+            },
+            "CompareDataFunc": {
+                "generic": "<T = any>",
+                "param": {
+                    "a": {
+                        "type": "T | null"
+                    },
+                    "b": {
+                        "type": "T | null"
+                    }
+                }
+            },
+            "Func": {
+                "generic": "<T = any>",
+                "param": {
+                    "data": {
+                        "type": "T | null"
+                    }
+                }
+            }
+        },
         "class": {
             "Variant": {
                 "generic": "<UnpackType = any, DeepUnpackType = UnpackType, RecursiveUnpackType = UnpackType>",
@@ -33,10 +79,382 @@
                         "type": "T"
                     },
                     "prev": {
-                        "type_extension": [ "null" ]
+                        "type": "GLib.List<T>"
                     },
                     "next": {
-                        "type_extension": [ "null" ]
+                        "type": "GLib.List<T>"
+                    }
+                },
+                "function": {
+                    "alloc": {
+                        "generic": "<T>",
+
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "append": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "concat": {
+                        "generic": "<T>",
+                        "param": {
+                            "list1": {
+                                "type": "GLib.List<T>"
+                            },
+                            "list2": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "copy": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "copy_deep": {
+                        "generic": "<T, K>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "func": {
+                                "type": "CopyFunc<T, K>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<K>"
+                        }
+                    },
+                    "delete_link": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "link_": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "find": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T> | null"
+                        }
+                    },
+                    "find_custom": {
+                        "generic": "<T, K>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "K | null"
+                            },
+                            "func": {
+                                "type": "CompareFunc<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T> | null"
+                        }
+                    },
+                    "first": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T> | null"
+                        }
+                    },
+                    "foreach": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "func": {
+                                "type": "Func<T>"
+                            }
+                        }
+                    },
+                    "index": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        }
+                    },
+                    "insert": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "insert_before": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "sibling": {
+                                "type": "GLib.List<T> | null"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "insert_before_link": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "sibling": {
+                                "type": "GLib.List<T> | null"
+                            },
+                            "link_": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "insert_sorted": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            },
+                            "func": {
+                                "type": "CompareFunc<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "insert_sorted_with_data": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            },
+                            "func": {
+                                "type": "CompareDataFunc<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "last": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T> | null"
+                        }
+                    },
+                    "nth": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T> | null"
+                        }
+                    },
+                    "nth_data": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "T | null"
+                        }
+                    },
+                    "nth_prev": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T> | null"
+                        }
+                    },
+                    "position": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "llink": {
+                                "type": "GLib.List<T>"
+                            }
+                        }
+                    },
+                    "prepend": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "remove": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "remove_all": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "data": {
+                                "type": "T | null"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "remove_link": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "llink": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "reverse": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "sort": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "compare_func": {
+                                "type": "CompareFunc<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
+                    },
+                    "sort_with_data": {
+                        "generic": "<T>",
+                        "param": {
+                            "list": {
+                                "type": "GLib.List<T>"
+                            },
+                            "compare_func": {
+                                "type": "CompareDataFunc<T>"
+                            }
+                        },
+                        "return_type": {
+                            "type": "GLib.List<T>"
+                        }
                     }
                 }
             }

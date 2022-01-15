@@ -53,17 +53,25 @@ export function renderRecordAsClass(rec_node: RecordNode, ns_name: string, exclu
         }
     let body = '';
 
+    let staticFuncs: FunctionNode[] = [];
     // Constructor keyword causes problems here so we need to check with stringify as well
     // even if value is null it still comes up as function
     if (JSON.stringify(rec_node.constructor) != undefined && rec_node.constructor != null) {
-        for (let construct of rec_node.constructor) {
-            if (JSON.stringify(construct) == undefined || construct == null)
-                continue;
-            const func_name = construct.$.name;
-            const excluded = (exclude?.static?.includes(func_name) ?? false) || exclude_all_members;
-            const modifierFunc = modifier?.function?.[func_name]
-            body += renderConstructorField(construct, ns_name, 1, excluded, modifierFunc) + "\n";
-        }
+        staticFuncs = staticFuncs.concat(rec_node.constructor);
+        
+    }
+
+    if (rec_node["function"]) {
+        staticFuncs = staticFuncs.concat(rec_node["function"])
+    }
+
+    for (let func of staticFuncs) {
+        if (JSON.stringify(func) == undefined || func == null)
+            continue;
+        const func_name = func.$.name;
+        const excluded = (exclude?.static?.includes(func_name) ?? false) || exclude_all_members;
+        const modifierFunc = modifier?.function?.[func_name]
+        body += renderConstructorField(func, ns_name, 1, excluded, modifierFunc) + "\n";
     }
 
     for (let f of props) {
